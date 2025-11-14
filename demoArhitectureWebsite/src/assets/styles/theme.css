@@ -1,0 +1,14 @@
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #fff !important; /* Light background */
+    color: #000 !important; /* Light text color */
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+  }
+}
+strong {
+  font-weight: 900;
+}/*# sourceMappingURL=theme.css.map */
