@@ -1,16 +1,15 @@
 import Header from "../components/Header";
-import {StyledMainLayout} from "./styledMainLayout.js";
-
-// Shared componeents which will only be rendered once across all pages
+import { StyledMainLayout } from "./styledMainLayout.js";
+import { GlobalStyles } from "./globalStyles";
 
 export default function MainLayout({ children }) {
-
-    return (
-        <>
-            <StyledMainLayout>
-              <Header />
-              <main>{children}</main>
-            </StyledMainLayout>
-        </>
-    );
-};
+  return (
+    <>
+      <GlobalStyles />
+      <StyledMainLayout>
+        <Header />
+        <main>{children}</main>
+      </StyledMainLayout>
+    </>
+  );
+}
