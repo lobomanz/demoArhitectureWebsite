@@ -32,18 +32,27 @@ export const StyledSwiper = styled.div`
         transform: translateY(-50%);
         position: fixed;
         z-index: 10;
-        gap: 10px;
+        gap: 14px;
+        align-items: center;
     }
 
     .swiper-pagination-bullet {
-        background: #fff;
-        opacity: 0.5;
+        background: rgba(255, 255, 255, 0.7);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.1s ease
+    }
+    .swiper-pagination-bullet:hover {
+        background: rgba(255,255,255, 0.9);
         width: 10px;
         height: 10px;
     }
 
     .swiper-pagination-bullet-active {
-        background: #ff4081;
-        opacity: 1;
+        background: rgba(255,255,255, 0.9);
+        width: 10px;
+        height: 10px;
     }
 `;

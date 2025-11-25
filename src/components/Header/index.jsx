@@ -1,30 +1,30 @@
-import { HeaderWrapper, Logo, Nav } from "./styledHeader";
-import { useEffect } from "react";
+import {HeaderWrapper} from "./styledHeader";
+import {useEffect} from "react";
 
 export default function Header() {
-  useEffect(() => {
-    const hasAnimated = sessionStorage.getItem("headerAnimated");
-    const header = document.querySelector("header");
+    useEffect(() => {
+        const hasAnimated = sessionStorage.getItem("headerAnimated");
+        const header = document.querySelector("header");
 
-    if (!hasAnimated) {
-      header.classList.add("show");
-      sessionStorage.setItem("headerAnimated", "true");
-    } else {
-      header.style.transition = "none";
-      header.style.top = "0";
-      header.style.opacity = "1";
-    }
-  }, []);
+        if (!hasAnimated) {
+            header.classList.add("show");
+            sessionStorage.setItem("headerAnimated", "true");
+        } else {
+            header.style.transition = "none";
+            header.style.top = "0";
+            header.style.opacity = "1";
+        }
+    }, []);
 
-  return (
-    <HeaderWrapper>
-      <Logo href="/">studiom2n</Logo>
+    return (
+        <HeaderWrapper>
+            <a className="logo" href="/">studiom2n</a>
 
-      <Nav>
-        <a href="/projects">projects</a>
-        <a href="/about">about us</a>
-        <a href="/contact">contact</a>
-      </Nav>
-    </HeaderWrapper>
-  );
+            <div className="navigation">
+                <a href="/projects">Projects</a>
+                <a href="/about">About us</a>
+                <a href="/contact">Contact</a>
+            </div>
+        </HeaderWrapper>
+    );
 }
