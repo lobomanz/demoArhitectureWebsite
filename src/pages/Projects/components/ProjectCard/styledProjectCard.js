@@ -13,7 +13,6 @@ export const CardContainer = styled.div`
 export const ImageContainer = styled.div`
   position: relative;
   max-width: 100%;
-  max-height: 100%;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -29,6 +28,7 @@ export const ResponsiveImage = styled.img`
   object-fit: cover;
 `;
 
+// Overlay fades in on hover
 export const Overlay = styled.div`
   position: absolute;
   top: 0;
@@ -38,28 +38,29 @@ export const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 1);
   opacity: 0;
   transition: opacity 0.3s ease;
-  height: 100%;
 
   &.visible {
     opacity: 0.5;
   }
 `;
 
+// Center text that fades in
 export const TextOverlay = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+  text-align: center;
   opacity: 0;
   transition: opacity 0.3s ease;
-  text-align: center;
 
   &.visible {
     opacity: 1;
   }
 
   h2 {
+    margin: 0;
     @media (max-width: 768px) {
       font-size: 18px;
     }
@@ -70,9 +71,9 @@ export const Title = styled.h3`
   font-size: 18px;
   color: black;
   text-transform: uppercase;
-  text-decoration: none !important;
+  margin-top: 10px;
 
   @media (min-width: 1024px) {
-    display: none;
+    display: none; /* same as your Vue desktop behavior */
   }
 `;

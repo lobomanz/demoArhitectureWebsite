@@ -5,7 +5,7 @@ export const ProjectWrapper = styled.div`
   width: 100%;
   margin-inline: auto;
 
-  @media (min-width: 1024px) { /* desktop */
+  @media (min-width: 1024px) {
     padding: 20px;
     flex-wrap: wrap;
     display: flex;
@@ -16,7 +16,7 @@ export const ProjectWrapper = styled.div`
 export const ProjectCardWrapper = styled.div`
   width: 31vw;
 
-  @media (max-width: 768px) { /* mobile */
+  @media (max-width: 768px) {
     padding-inline: 15px;
     padding-top: 10px;
     width: auto;

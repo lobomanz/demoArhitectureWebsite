@@ -1,35 +1,74 @@
+// HOMEPAGE IMAGES (already working)
 const homepageImages = import.meta.glob(
   "./DemoWebPages/**/HomePage/Images/*.{jpg,jpeg,png,webp}",
   { eager: true }
 );
 
-function getHomepageImages(siteName) {
-  const basePath = `./DemoWebPages/${siteName}/HomePage/Images/`;
+// PROJECT IMAGES
+const projectImages = import.meta.glob(
+  "./DemoWebPages/**/Projects/MainProjectsImages/*.{jpg,jpeg,png,webp}",
+  { eager: true }
+);
 
-  console.log("🔍 ALL IMPORTED IMAGE PATHS:");
-  Object.keys(homepageImages).forEach((p) => console.log(" →", p));
-  console.log("🔎 Looking for:", basePath);
+/* -----------------------------------------
+   Project Image Parser
+   Filename format MUST BE: 
+   ProjectName-ProjectDate-SortNumber.webp
 
-  const images = [];
+   Example:
+   Bridge-12.03.2023-1.webp 
+----------------------------------------- */
 
-  for (const path in homepageImages) {
+function parseProjectFileName(fileName) {
+  const [projectInfo, projectDate, sortNumberWithExt] = fileName.split("-");
+  const sort = parseInt(sortNumberWithExt.split(".")[0], 10);
+
+  return {
+    id: `${projectInfo}-${projectDate}-${sort}`,
+    projectInfo,
+    projectDate,
+    sort,
+  };
+}
+
+/* -----------------------------------------
+   Get all project cards for a given siteName
+----------------------------------------- */
+
+function getSiteProjects(siteName) {
+  const basePath = `./DemoWebPages/${siteName}/Projects/MainProjectsImages/`;
+
+  const projects = [];
+
+  for (const path in projectImages) {
     if (path.startsWith(basePath)) {
-      const module = homepageImages[path];
+      const mod = projectImages[path];
+      const url = mod.default;
+      const file = path.split("/").pop();
 
-      // Vite eager glob returns an object with "default" key
-      images.push(module.default); // << FIX HERE
+      const info = parseProjectFileName(file);
+
+      projects.push({
+        ...info,
+        image: url,
+      });
     }
   }
 
-  if (images.length === 0) {
-    console.warn(
-      `⚠ No images found for site "${siteName}". Checked path: ${basePath}`
-    );
-  }
+  // sort by SortNumber
+  projects.sort((a, b) => a.sort - b.sort);
 
-  return images;
+  console.log("🧱 Loaded projects:", projects);
+
+  return projects;
 }
 
 export default {
-  getHomepageImages,
+  getHomepageImages: (siteName) => {
+    const basePath = `./DemoWebPages/${siteName}/HomePage/Images/`;
+    return Object.keys(homepageImages)
+      .filter((p) => p.startsWith(basePath))
+      .map((p) => homepageImages[p].default);
+  },
+  getSiteProjects,
 };

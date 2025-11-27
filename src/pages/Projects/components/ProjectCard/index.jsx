@@ -1,74 +1,64 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import {
-  CardContainer,
-  ImageContainer,
-  ResponsiveImage,
-  Overlay,
-  TextOverlay,
-  Title,
+    CardContainer,
+    ImageContainer,
+    ResponsiveImage,
+    Overlay,
+    TextOverlay,
+    Title
 } from "./styledProjectCard";
 
-// Moved outside the component to avoid re-creation & remove dependency warnings
-const monthNames = [
-  "Siječanj",
-  "Veljača",
-  "Ožujak",
-  "Travanj",
-  "Svibanj",
-  "Lipanj",
-  "Srpanj",
-  "Kolovoz",
-  "Rujan",
-  "Listopad",
-  "Studeni",
-  "Prosinac",
-];
-
 export default function ProjectCard({ info }) {
-  const [hover, setHover] = useState(false);
+    const [hover, setHover] = useState(false);
 
-  // Compute the formatted date (memoized)
-  const monthAndYear = useMemo(() => {
-    if (!info.projectDate) return "";
+    // Format date → "MonthName, Year"
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
 
-    // Normalize separators (supports ".", "/", "-")
-    const normalized = info.projectDate.replace(/[-/]/g, ".");
-    const parts = normalized.match(/^(\d{2})\.(\d{2})\.(\d{4})$/);
+        const [, month, year] = dateString.split("."); // ignore "day"
 
-    if (!parts) return "";
+        const monthNames = [
+            "Siječanj", "Veljača", "Ožujak", "Travanj", "Svibanj", "Lipanj",
+            "Srpanj", "Kolovoz", "Rujan", "Listopad", "Studeni", "Prosinac"
+        ];
 
-    const month = parseInt(parts[2], 10);
-    const year = parts[3];
-    const monthName = monthNames[month - 1];
+        return `${monthNames[parseInt(month) - 1]}, ${year}`;
+    };
 
-    return monthName ? `${monthName}, ${year}` : "";
-  }, [info.projectDate]);
+    // Add spaces before capital letters (except the first)
+    const formatProjectName = (name) => {
+        if (!name) return "";
+        return name.replace(/(?!^)([A-Z])/g, " $1");
+    };
 
-  return (
-    <CardContainer>
-      <ImageContainer
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        <ResponsiveImage
-          src={info.image}
-          alt={info.projectInfo}
-          loading="lazy"
-        />
+    const projectName = formatProjectName(info.projectInfo);
+    const formattedDate = formatDate(info.projectDate);
 
-        <Overlay className={hover ? "visible" : ""} />
+    return (
+        <CardContainer>
+            <ImageContainer
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+            >
+                <ResponsiveImage
+                    src={info.image}
+                    alt={projectName}
+                    loading="lazy"
+                />
 
-        <TextOverlay className={hover ? "visible" : ""}>
-          <h2>{info.projectInfo}</h2>
-          <p>{monthAndYear}</p>
-        </TextOverlay>
-      </ImageContainer>
+                <Overlay className={hover ? "visible" : ""} />
 
-      <Title>
-        {info.projectInfo}
-        <br />
-        {monthAndYear}
-      </Title>
-    </CardContainer>
-  );
+                <TextOverlay className={hover ? "visible" : ""}>
+                    <h2>{projectName}</h2>
+                    <p>{formattedDate}</p>
+                </TextOverlay>
+            </ImageContainer>
+
+            <Title>
+                {projectName}
+                <br />
+                {formattedDate}
+            </Title>
+        </CardContainer>
+    );
 }
