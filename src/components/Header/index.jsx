@@ -1,7 +1,10 @@
-import {HeaderWrapper} from "./styledHeader";
-import {useEffect} from "react";
+import { HeaderWrapper } from "./styledHeader";
+import { useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 
 export default function Header() {
+    const { siteName } = useParams();
+
     useEffect(() => {
         const hasAnimated = sessionStorage.getItem("headerAnimated");
         const header = document.querySelector("header");
@@ -18,12 +21,15 @@ export default function Header() {
 
     return (
         <HeaderWrapper>
-            <a className="logo" href="/">studiom2n</a>
+            {/* Logo → takes you to the homepage of the current site */}
+            <Link className="logo" to={`/${siteName}`}>
+                studiom2n
+            </Link>
 
             <div className="navigation">
-                <a href="/projects">Projects</a>
-                <a href="/about">About us</a>
-                <a href="/contact">Contact</a>
+                <Link to={`/${siteName}/projects`}>Projects</Link>
+                <Link to={`/${siteName}/about`}>About us</Link>
+                <Link to={`/${siteName}/contact`}>Contact</Link>
             </div>
         </HeaderWrapper>
     );
