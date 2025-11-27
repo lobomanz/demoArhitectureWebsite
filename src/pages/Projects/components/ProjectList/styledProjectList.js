@@ -5,17 +5,18 @@ export const ProjectWrapper = styled.div`
   width: 100%;
   margin-inline: auto;
 
+  /* Desktop behavior */
   @media (min-width: 1024px) {
-    padding: 20px;
-    flex-wrap: wrap;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 `;
 
 export const ProjectCardWrapper = styled.div`
   width: 31vw;
 
+  /* Mobile behavior */
   @media (max-width: 768px) {
     padding-inline: 15px;
     padding-top: 10px;
@@ -26,6 +27,7 @@ export const ProjectCardWrapper = styled.div`
     flex-direction: column;
   }
 
+  /* Anchor tag inside card */
   a {
     text-decoration: none;
 

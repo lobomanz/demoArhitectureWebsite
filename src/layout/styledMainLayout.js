@@ -12,7 +12,6 @@ export const StyledMainLayout = styled.div`
     main {
         height: 100%;
         max-width: 100vw;
-        background: #444;
 
     }
 `;
