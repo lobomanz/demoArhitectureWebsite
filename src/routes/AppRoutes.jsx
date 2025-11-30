@@ -4,7 +4,7 @@ import MainLayout from "../layout/MainLayout.jsx";
 import Homepage from "../pages/Homepage";
 import AboutUs from "../pages/About/index.jsx";
 import Projects from "../pages/Projects/index.jsx";
-// import ProjectSingle from "../pages/Projects/ProjectSingle.jsx";
+import ProjectSingle from "../pages/Project/index.jsx"; // <-- your new page
 
 export default function AppRoutes() {
     return (
@@ -14,10 +14,14 @@ export default function AppRoutes() {
                 {/* ROOT MESSAGE */}
                 <Route
                     path="/"
-                    element={<h2>Pick a website: AktisProjekt, Arhi, StudioAlamat, Vedoza...</h2>}
+                    element={
+                        <h2 style={{ padding: "40px" }}>
+                            Pick a website: AktisProjekt, Arhi, StudioAlamat, StudioAlbahari, Vedoza...
+                        </h2>
+                    }
                 />
 
-                {/* DYNAMIC HOMEPAGE */}
+                {/* HOMEPAGE */}
                 <Route
                     path="/:siteName"
                     element={
@@ -27,7 +31,7 @@ export default function AppRoutes() {
                     }
                 />
 
-                {/* DYNAMIC ABOUT */}
+                {/* ABOUT */}
                 <Route
                     path="/:siteName/about"
                     element={
@@ -37,7 +41,7 @@ export default function AppRoutes() {
                     }
                 />
 
-                {/* DYNAMIC PROJECT LIST */}
+                {/* PROJECT LIST */}
                 <Route
                     path="/:siteName/projects"
                     element={
@@ -47,15 +51,16 @@ export default function AppRoutes() {
                     }
                 />
 
-                {/* SINGLE PROJECT (you can enable later) */}
-                {/* <Route
+                {/* SINGLE PROJECT (ID-based) */}
+                <Route
                     path="/:siteName/projects/:projectId"
                     element={
                         <MainLayout>
-                            <ProjectSingle />
+                            <ProjectSingle /> 
                         </MainLayout>
                     }
-                /> */}
+                />
+
             </Routes>
         </BrowserRouter>
     );
