@@ -1,11 +1,11 @@
-import { useParams, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {useParams, useLocation} from "react-router-dom";
+import {useEffect, useState} from "react";
 import Gateway from "../../Gateway";
 import Gallery from "../../components/Gallery/index.jsx";
-import { Wrapper, Title } from "./styledProject.js";
+import {Wrapper, Title} from "./styledProject.js";
 
 export default function ProjectSingle() {
-    const { siteName, projectId } = useParams();
+    const {siteName, projectId} = useParams();
     const location = useLocation();
 
     // Get ?title= from the query string
@@ -50,15 +50,15 @@ export default function ProjectSingle() {
     return (
         <Wrapper>
             {/* Title */}
-            <Title>{titleFromQuery}</Title>
+            <h1 className="project-title">{titleFromQuery}</h1>
 
             {/* Image gallery */}
-            <Gallery images={images} mode="1" />
+            <Gallery images={images} mode="1"/>
 
             {/* HTML rich text from Google Docs */}
-            <div 
+            <div
                 className="project-text"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{__html: content}}
             />
 
         </Wrapper>

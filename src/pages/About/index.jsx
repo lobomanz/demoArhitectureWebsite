@@ -14,7 +14,7 @@ export default function AboutUs() {
                             <h2>We do not design architecture <br/> we design buildings</h2>
                         </div>
                     </div>
-                    <section>
+                    <section className="about-section">
                         <div className="section-one">
                             <div className="left-container">
                                 <div className="section-one-title">

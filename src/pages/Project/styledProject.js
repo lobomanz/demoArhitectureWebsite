@@ -4,10 +4,21 @@ export const Wrapper = styled.div`
     margin: 0 auto;
     padding: 40px;
 
+    .project-title {
+        margin-left: 0;
+        margin-bottom: 20px;
+        font-size: 36px;
+        text-align: left;
+
+        @media (max-width: 768px) {
+            font-size: 28px;
+        }
+    }
+
     .project-text {
         margin-top: 40px;
         max-width: 1000px;
-        margin-inline: auto;      
+        margin-inline: auto;
 
         h2 {
             font-size: 32px;
@@ -25,10 +36,11 @@ export const Wrapper = styled.div`
         padding: 20px;
 
         .project-text {
-            
+
             h2 {
                 font-size: 26px;
             }
+
             p {
                 font-size: 16px;
             }
@@ -36,13 +48,3 @@ export const Wrapper = styled.div`
     }
 `;
 
-export const Title = styled.h1`
-    margin-left: 0;
-    margin-bottom: 20px;
-    font-size: 36px;
-    text-align: left;
-
-    @media (max-width: 768px) {
-        font-size: 28px;
-    }
-`;
