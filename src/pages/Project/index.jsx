@@ -2,7 +2,7 @@ import {useParams, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Gateway from "../../Gateway";
 import Gallery from "../../components/Gallery/index.jsx";
-import {Wrapper, Title} from "./styledProject.js";
+import {Wrapper} from "./styledProject.js";
 
 export default function ProjectSingle() {
     const {siteName, projectId} = useParams();

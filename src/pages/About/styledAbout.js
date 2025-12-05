@@ -4,16 +4,32 @@ import heroImg from "../../assets/About/aboutimg1.jpg";
 export const StyledAbout = styled.div`
     height: 100%;
     width: 100%;
+    background-color: #1e1e1e;
+
+    .container::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
 
     .container {
         width: 100%;
-        max-height: 1200px;
-        height: 100vh;
+        padding-bottom: 40px;
+        -ms-overflow-style: none;
+        overflow-y: scroll;
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+
+        &::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+            background: transparent;
+        }
 
         .hero-section {
             position: relative;
-            height: 100%;
             overflow: hidden;
+            height: 100vh;
+
 
             &::before {
                 content: "";
@@ -43,6 +59,10 @@ export const StyledAbout = styled.div`
 
         .about-section {
             overflow: hidden;
+            background-color: #1e1e1e;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
 
             .section-one {
                 display: flex;
@@ -74,9 +94,69 @@ export const StyledAbout = styled.div`
                 .right-container {
                     width: 40%;
                     padding: 60px 20px 20px 40px;
+                    display: flex;
+                    justify-content: center;
 
                     img {
                         height: 600px;
+                    }
+                }
+            }
+
+            .section-two {
+                height: 400px;
+                width: 100%;
+                background-color: #1e1e1e;
+                padding: 0 20px;
+
+                .section-two-container {
+                    width: 60%;
+
+                    p {
+                        font-size: 20px;
+                        color: #e9e6df;
+                        letter-spacing: 1.3px;
+                        font-weight: 500;
+
+                    }
+                }
+            }
+
+            .section-three {
+                display: flex;
+                width: 100%;
+                padding: 0 20px;
+                background-color: #1e1e1e;
+
+                .left-container {
+                    width: 40%;
+                    padding: 60px 20px 20px 40px;
+                    display: flex;
+                    justify-content: center;
+
+                    img {
+                        height: 600px;
+                    }
+                }
+
+                .right-container {
+                    display: flex;
+                    flex-direction: column;
+                    width: 60%;
+                    padding: 20px 80px 0 0;
+
+                    .section-three-title {
+                        color: #e9e6df;
+                        font-size: 26px;
+                        font-weight: 500;
+                        letter-spacing: 1.3px;
+                    }
+
+                    .section-three-description {
+                        font-size: 20px;
+                        color: #e9e6df;
+                        letter-spacing: 1.3px;
+                        font-weight: 500;
                     }
                 }
             }

@@ -6,4 +6,15 @@ export const GlobalStyles = createGlobalStyle`
         padding: 0;
         font-family: sans-serif;
     }
+
+    body::-webkit-scrollbar {
+        width: 0px; /* removes the scrollbar */
+        background: transparent;
+    }
+
+    /* Hide scrollbar for Firefox */
+    body {
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+    }
 `;

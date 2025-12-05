@@ -1,9 +1,9 @@
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { StyledSwiper } from "./styledHomepageSwiper.js";
-import { Mousewheel, Pagination } from "swiper/modules";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {StyledSwiper} from "./styledHomepageSwiper.js";
+import {Mousewheel, Pagination, Autoplay} from "swiper/modules";
 
-export default function HomepageSwiper({ images = [] }) {
+export default function HomepageSwiper({images = []}) {
     // images defaults to [] (fixes map undefined error)
 
     return (
@@ -11,10 +11,16 @@ export default function HomepageSwiper({ images = [] }) {
             <Swiper
                 direction="vertical"
                 slidesPerView={1}
-                spaceBetween={30}
+                spaceBetween={0}
                 mousewheel
-                pagination={{ clickable: true }}
-                modules={[Mousewheel, Pagination]}
+                pagination={{clickable: true}}
+                autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: true
+                }}
+                speed={800}
+                loop={true}
+                modules={[Mousewheel, Pagination, Autoplay]}
                 className="mySwiper"
             >
                 {images.length === 0 && (
@@ -35,7 +41,7 @@ export default function HomepageSwiper({ images = [] }) {
 
                 {images.map((src, index) => (
                     <SwiperSlide key={index}>
-                        <img src={src} alt={`Slide ${index}`} />
+                        <img src={src} alt={`Slide ${index}`}/>
                     </SwiperSlide>
                 ))}
             </Swiper>
