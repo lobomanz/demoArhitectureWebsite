@@ -51,7 +51,7 @@ export default function Header() {
 
     return (
         <>
-            <HeaderWrapper>
+            <HeaderWrapper className="header">
                 <Link className="logo" to={`/${siteName}`}>
                     studiom2n
                 </Link>

@@ -101,7 +101,7 @@ export const Form = styled.form`
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: rgb(15, 15, 15);
+        background-color: #1e1e1e;
         border: none;
         color: white;
         font-weight: 600;
@@ -119,7 +119,7 @@ export const Form = styled.form`
         height: 130px;
         position: absolute;
         content: "";
-        background-color: white;
+        background-color: #e1e1e2;
         border-radius: 50%;
         left: -100%;
         top: 0;

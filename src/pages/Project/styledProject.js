@@ -1,8 +1,33 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const StyledProject = styled.div`
     margin: 0 auto;
     padding: 40px;
+    background: #f5f4f0;
+
+    .header {
+        background: #f5f4f0;
+
+        .logo {
+            color: #1e1e1e;
+
+        }
+
+        .navigation {
+            a {
+                color: #1e1e1e;
+                font-family: "Inter", sans-serif;
+                font-size: 18px;
+                text-decoration: none;
+                padding: 0 8px;
+            }
+
+            a:hover {
+                color: black;
+                transition: all 0.1s ease;
+            }
+        }
+    }
 
     .project-title {
         margin-left: 0;
@@ -16,9 +41,8 @@ export const Wrapper = styled.div`
     }
 
     .project-text {
-        margin-top: 40px;
-        max-width: 1000px;
-        margin-inline: auto;
+        margin-top: 20px;
+        max-width: 1500px;
 
         h2 {
             font-size: 32px;

@@ -2,12 +2,14 @@ import React from 'react';
 import {StyledAbout} from "./styledAbout.js";
 import section1img from "../../assets/About/about-section-1-img.jpg"
 import Footer from "../../components/Footer/index.jsx";
+import Header from "../../components/Header/index.jsx";
 
 export default function AboutUs() {
 
 
     return (
         <>
+            <Header/>
             <StyledAbout>
                 <div className="container">
                     <div className="hero-section">
@@ -93,7 +95,7 @@ export default function AboutUs() {
                 </div>
             </StyledAbout>
             <Footer/>
-            
+
         </>
     );
 }

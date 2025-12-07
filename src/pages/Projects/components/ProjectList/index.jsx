@@ -1,22 +1,22 @@
-import { useParams, Link } from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import ProjectCard from "../ProjectCard";
 import {
     ProjectWrapper,
     ProjectCardWrapper
 } from "./styledProjectList";
 
-export default function ProjectList({ projectList }) {
-    const { siteName } = useParams();
+export default function ProjectList({projectList}) {
+    const {siteName} = useParams();
 
     return (
-        <ProjectWrapper>
+        <ProjectWrapper className="cards-wrapper">
             {projectList.map((project) => (
-                <ProjectCardWrapper key={project.id}>
-                   <Link
+                <ProjectCardWrapper key={project.id} className="card">
+                    <Link
                         to={`/${siteName}/projects/${project.id}?title=${encodeURIComponent(project.projectInfo)}`}
                         className="card-link"
                     >
-                        <ProjectCard info={project} />
+                        <ProjectCard info={project}/>
                     </Link>
                 </ProjectCardWrapper>
             ))}

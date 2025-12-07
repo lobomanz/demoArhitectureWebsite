@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import MainLayout from "../layout/MainLayout.jsx";
 
 import Homepage from "../pages/Homepage";
@@ -15,7 +15,7 @@ export default function AppRoutes() {
                 <Route
                     path="/"
                     element={
-                        <h2 style={{ padding: "40px" }}>
+                        <h2 style={{padding: "40px"}}>
                             Pick a website: AktisProjekt, Arhi, StudioAlamat, StudioAlbahari, Vedoza...
                         </h2>
                     }
@@ -25,9 +25,7 @@ export default function AppRoutes() {
                 <Route
                     path="/:siteName"
                     element={
-                        <MainLayout>
-                            <Homepage />
-                        </MainLayout>
+                        <Homepage/>
                     }
                 />
 
@@ -35,9 +33,7 @@ export default function AppRoutes() {
                 <Route
                     path="/:siteName/about"
                     element={
-                        <MainLayout>
-                            <AboutUs />
-                        </MainLayout>
+                        <AboutUs/>
                     }
                 />
 
@@ -45,9 +41,7 @@ export default function AppRoutes() {
                 <Route
                     path="/:siteName/projects"
                     element={
-                        <MainLayout>
-                            <Projects />
-                        </MainLayout>
+                        <Projects/>
                     }
                 />
 
@@ -55,9 +49,7 @@ export default function AppRoutes() {
                 <Route
                     path="/:siteName/projects/:projectId"
                     element={
-                        <MainLayout>
-                            <ProjectSingle /> 
-                        </MainLayout>
+                        <ProjectSingle/>
                     }
                 />
 

@@ -7,9 +7,9 @@ export const HeaderWrapper = styled.header`
     width: calc(100% - 100px);
     z-index: 1000;
     background: linear-gradient(
-            to right,
-            rgba(0, 0, 0, 0) 70%, /* fully transparent until 70% */ /* smooth fade 0 → 0.4 from 70–90% */ rgba(0, 0, 0, 0.4) 90%,
-                /* smooth fade 0.4 → 0.5 from 90–100% */ rgba(0, 0, 0, 0.5) 100%
+            to top,
+            rgba(0, 0, 0, 0) 10%, /* fully transparent until 70% */ /* smooth fade 0 → 0.4 from 70–90% */ rgba(0, 0, 0, 0.3) 40%,
+                /* smooth fade 0.4 → 0.5 from 90–100% */ rgba(0, 0, 0, 0.6) 100%
     );
     padding: 10px 50px;
     display: flex;
@@ -38,7 +38,7 @@ export const HeaderWrapper = styled.header`
         a {
             font-family: "Inter", sans-serif;
             font-size: 18px;
-            font-weight: 300;
+            font-weight: 500;
             text-decoration: none;
             color: white;
             padding: 0 8px;

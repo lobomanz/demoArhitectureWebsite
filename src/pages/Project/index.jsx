@@ -2,7 +2,9 @@ import {useParams, useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Gateway from "../../Gateway";
 import Gallery from "../../components/Gallery/index.jsx";
-import {Wrapper} from "./styledProject.js";
+import {StyledProject} from "./styledProject.js";
+import Header from "../../components/Header/index.jsx";
+import Footer from "../../components/Footer/index.jsx";
 
 export default function ProjectSingle() {
     const {siteName, projectId} = useParams();
@@ -48,19 +50,22 @@ export default function ProjectSingle() {
     }, [siteName, projectId]);
 
     return (
-        <Wrapper>
-            {/* Title */}
-            <h1 className="project-title">{titleFromQuery}</h1>
+        <>
+            <StyledProject>
+                <Header/>
+                {/* Title */}
+                <h1 className="project-title">{titleFromQuery}</h1>
 
-            {/* Image gallery */}
-            <Gallery images={images} mode="1"/>
+                {/* Image gallery */}
+                <Gallery images={images} mode="1"/>
 
-            {/* HTML rich text from Google Docs */}
-            <div
-                className="project-text"
-                dangerouslySetInnerHTML={{__html: content}}
-            />
-
-        </Wrapper>
+                {/* HTML rich text from Google Docs */}
+                <div
+                    className="project-text"
+                    dangerouslySetInnerHTML={{__html: content}}
+                />
+            </StyledProject>
+            <Footer/>
+        </>
     );
 }
