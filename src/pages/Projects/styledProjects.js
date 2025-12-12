@@ -9,13 +9,14 @@ export const StyledProjects = styled.div`
 
 
     .header {
-        background: #f5f4f0;
 
-        .logo {
+        .logo, .glass-link {
             color: #1e1e1e;
 
         }
-
+        .bar{
+            background-color: #1e1e1e;
+            }
         .navigation {
             a {
                 color: #1e1e1e;

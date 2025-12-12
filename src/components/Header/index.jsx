@@ -1,71 +1,137 @@
-import {useEffect, useMemo, useState} from "react";
-import {useParams, Link} from "react-router-dom";
-import {HeaderWrapper} from "./styledHeader";
+import { useEffect, useMemo, useState, useRef } from "react";
+import { useParams, Link, useLocation } from "react-router-dom";
+import { HeaderWrapper } from "./styledHeader";
 import Modal from "../../components/ContactModal";
 import Gateway from "../../Gateway.js";
 
 export default function Header() {
-    const {siteName} = useParams();
-    const [isOpen, setIsOpen] = useState(false);
+  const { siteName } = useParams();
+  const location = useLocation();
 
-    const images = useMemo(() => {
-        if (!siteName) return [];
-        return Gateway.getContactFormImages(siteName);
-    }, [siteName]);
+  const [isOpen, setIsOpen] = useState(false); // contact modal
+  const [menuOpen, setMenuOpen] = useState(false); // mobile menu
 
+  const menuBtnRef = useRef(null);
 
-    const openModal = () => {
-        setIsOpen(true);
+  const images = useMemo(() => {
+    if (!siteName) return [];
+    return Gateway.getContactFormImages(siteName);
+  }, [siteName]);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
+  const toggleMenu = () => setMenuOpen((v) => !v);
+  const closeMenu = () => {
+    setMenuOpen(false);
+    requestAnimationFrame(() => menuBtnRef.current?.focus());
+  };
+
+  // Lock scroll if either menu or modal is open
+  useEffect(() => {
+    if (isOpen || menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
     };
+  }, [isOpen, menuOpen]);
 
-    const closeModal = () => {
-        setIsOpen(false);
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  // ESC to close menu
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") {
+        if (menuOpen) closeMenu();
+        if (isOpen) closeModal();
+      }
     };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen, isOpen]);
 
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
-        }
+  // Your one-time header intro animation
+  useEffect(() => {
+    const hasAnimated = sessionStorage.getItem("headerAnimated");
+    const header = document.querySelector("header");
 
-        // cleanup on unmount
-        return () => {
-            document.body.style.overflow = "";
-        };
-    }, [isOpen]);
+    if (!hasAnimated) {
+      header.classList.add("show");
+      sessionStorage.setItem("headerAnimated", "true");
+    } else {
+      header.style.transition = "none";
+      header.style.top = "0";
+      header.style.opacity = "1";
+    }
+  }, []);
 
-    useEffect(() => {
-        const hasAnimated = sessionStorage.getItem("headerAnimated");
-        const header = document.querySelector("header");
+  const onContactClick = () => {
+    closeMenu();
+    openModal();
+  };
 
-        if (!hasAnimated) {
-            header.classList.add("show");
-            sessionStorage.setItem("headerAnimated", "true");
-        } else {
-            header.style.transition = "none";
-            header.style.top = "0";
-            header.style.opacity = "1";
-        }
-    }, []);
+  return (
+    <>
+      <HeaderWrapper className={`header ${!menuOpen ? "header-blur" : ""}`} >
+        <Link className={`logo ${menuOpen ? "color-white" : ""}`} to={`/${siteName}`}>
+          studiom2n
+        </Link>
 
-    return (
-        <>
-            <HeaderWrapper className="header">
-                <Link className="logo" to={`/${siteName}`}>
-                    studiom2n
-                </Link>
+        {/* Desktop nav */}
+        <div className="navigation">
+          <Link to={`/${siteName}/projects`}>Projects</Link>
+          <Link to={`/${siteName}/about`}>About us</Link>
+          <Link className="open-modal-btn" onClick={openModal}>
+            Contact
+          </Link>
+        </div>
 
-                <div className="navigation">
-                    <Link to={`/${siteName}/projects`}>Projects</Link>
-                    <Link to={`/${siteName}/about`}>About us</Link>
-                    <Link className="open-modal-btn" onClick={openModal}>
-                        Contact
-                    </Link>
-                </div>
-            </HeaderWrapper>
+        {/* Mobile hamburger */}
+        <button
+          ref={menuBtnRef}
+          className={`hamburger ${menuOpen ? "is-open" : ""}`}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          onClick={toggleMenu}
+          type="button"
+        >
+          <span className="bar" />
+          <span className="bar" />
+          <span className="bar" />
+        </button>
 
-            <Modal isOpen={isOpen} onClose={closeModal} images={images}/>
-        </>
-    );
+        {/* Mobile menu overlay + panel */}
+        <div
+          className={`mobile-overlay ${menuOpen ? "open" : ""}`}
+          onMouseDown={(e) => {
+            if (e.target === e.currentTarget) closeMenu();
+          }}
+          aria-hidden={!menuOpen}
+        >
+          <nav id="mobile-menu" className="mobile-panel">
+            <div className="mobile-links">
+              <Link className="glass-link" to={`/${siteName}/projects`} onClick={closeMenu}>
+                Projects
+              </Link>
+              <Link className="glass-link" to={`/${siteName}/about`} onClick={closeMenu}>
+                About us
+              </Link>
+              <button className="glass-link" type="button" onClick={onContactClick}>
+                Contact
+              </button>
+            </div>
+          </nav>
+        </div>
+      </HeaderWrapper>
+
+      <Modal isOpen={isOpen} onClose={closeModal} images={images} />
+    </>
+  );
 }

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const ProjectWrapper = styled.div`
-    max-width: calc(93vw + 60px);
+max-width:calc(100vw - 60px);
+margin:auto;
     width: 100%;
-    margin: 10px;
     padding-bottom: 20px;
     display: grid;
     background: #f5f4f0;
@@ -53,6 +53,7 @@ export const ProjectCardWrapper = styled.div`
 
     /* Mobile behavior */
     @media (max-width: 768px) {
+        max-width: calc(100vw - 90px);
         padding-inline: 15px;
         padding-top: 10px;
         width: auto;
