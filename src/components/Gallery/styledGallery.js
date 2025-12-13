@@ -5,7 +5,7 @@ export const GalleryContainer = styled.div`
     position: relative;
     overflow: hidden;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1080px) {
         width: 100%;
         margin-inline: 0;
         max-height: 350px;

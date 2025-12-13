@@ -119,7 +119,7 @@ export const HeaderWrapper = styled.header`
     display: none;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
     width: 100%;
     padding: 12px 18px;
 

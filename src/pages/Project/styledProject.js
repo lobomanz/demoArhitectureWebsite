@@ -38,7 +38,7 @@ export const StyledProject = styled.div`
         font-size: 36px;
         text-align: left;
 
-        @media (max-width: 768px) {
+        @media (max-width: 1080px) {
             font-size: 28px;
         }
     }
@@ -59,7 +59,7 @@ export const StyledProject = styled.div`
         }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1080px) {
         padding: 20px;
 
         .project-text {

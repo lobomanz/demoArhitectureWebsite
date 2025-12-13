@@ -52,7 +52,7 @@ export const ProjectCardWrapper = styled.div`
     width: 31vw;
 
     /* Mobile behavior */
-    @media (max-width: 768px) {
+    @media (max-width: 1080px) {
         max-width: calc(100vw - 90px);
         padding-inline: 15px;
         padding-top: 10px;
@@ -68,7 +68,7 @@ export const ProjectCardWrapper = styled.div`
     a {
         text-decoration: none;
 
-        @media (max-width: 768px) {
+        @media (max-width: 1080px) {
             display: flex;
             justify-content: center;
             align-items: center;

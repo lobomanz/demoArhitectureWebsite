@@ -96,13 +96,15 @@ export const StyledAbout = styled.div`
           justify-content: center;
 
           img {
-            height: 600px;
+            height: auto;
+            max-height:600px;
+            object-fit: contain;
           }
         }
       }
 
       .section-two {
-        height: 400px;
+        height: auto;
         width: 100%;
         background-color: #1e1e1e;
         padding: 0 20px;
@@ -124,15 +126,19 @@ export const StyledAbout = styled.div`
         width: 100%;
         padding: 0 20px;
         background-color: #1e1e1e;
+        align-items:flex-start;
 
         .left-container {
-          width: 40%;
-          padding: 60px 20px 20px 40px;
-          display: flex;
-          justify-content: center;
+        width: 40%;
+        padding: 50px 20px 20px 40px;
+        display: flex;
+        justify-content: center;
 
           img {
-            height: 600px;
+            height: auto;
+            max-width:100%;
+            object-fit:contain;
+            max-height:600px;
           }
         }
 
@@ -160,7 +166,7 @@ export const StyledAbout = styled.div`
     }
 
     /* ✅ MOBILE FIXES: ONLY section-one, section-two, section-three */
-    @media (max-width: 768px) {
+    @media (max-width: 1080px) {
       .about-section {
         .section-one,
         .section-two,

@@ -15,7 +15,7 @@ export default function HomepageSwiper({images = []}) {
                 mousewheel
                 pagination={{clickable: true}}
                 autoplay={{
-                    delay: 3000,
+                    delay: 6000,
                     disableOnInteraction: true
                 }}
                 speed={800}

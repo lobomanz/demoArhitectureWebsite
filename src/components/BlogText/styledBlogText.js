@@ -6,7 +6,7 @@ export const BlogWrapper = styled.div`
   background-color: #fff;
   padding: 60px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
     padding: 40px;
   }
 

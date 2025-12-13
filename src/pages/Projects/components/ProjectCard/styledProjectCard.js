@@ -4,7 +4,7 @@ export const CardContainer = styled.div`
     width: 100%;
     height: 100%;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1080px) {
         margin-inline: 10px;
     }
 `;
@@ -60,7 +60,7 @@ export const TextOverlay = styled.div`
 
     h2 {
         margin: 0;
-        @media (max-width: 768px) {
+        @media (max-width: 1080px) {
             font-size: 18px;
         }
     }
