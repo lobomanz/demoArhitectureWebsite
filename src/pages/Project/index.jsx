@@ -1,18 +1,24 @@
-import {useParams, useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { useParams, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Gateway from "../../Gateway";
 import Gallery from "../../components/Gallery/index.jsx";
-import {StyledProject} from "./styledProject.js";
+import { StyledProject } from "./styledProject.js";
 import Header from "../../components/Header/index.jsx";
 import Footer from "../../components/Footer/index.jsx";
 
 export default function ProjectSingle() {
-    const {siteName, projectId} = useParams();
+    const { siteName, projectId } = useParams();
     const location = useLocation();
 
     // Get ?title= from the query string
     const searchParams = new URLSearchParams(location.search);
-    const titleFromQuery = searchParams.get("title") || "Untitled Project";
+    const rawTitle = searchParams.get("title") || "UntitledProject";
+
+    // Convert "MyAwesomeTitle" -> "My Awesome Title"
+    const formattedTitle = rawTitle
+        .replace(/([A-Z])/g, " $1")
+        .replace(/^./, str => str.toUpperCase())
+        .trim();
 
     const [images, setImages] = useState([]);
     const [content, setContent] = useState("");
@@ -52,20 +58,22 @@ export default function ProjectSingle() {
     return (
         <>
             <StyledProject>
-                <Header/>
+                <Header />
+
                 {/* Title */}
-                <h1 className="project-title">{titleFromQuery}</h1>
+                <h1 className="project-title">{formattedTitle}</h1>
 
                 {/* Image gallery */}
-                <Gallery images={images} mode="1"/>
+                <Gallery images={images} mode="1" />
 
                 {/* HTML rich text from Google Docs */}
                 <div
                     className="project-text"
-                    dangerouslySetInnerHTML={{__html: content}}
+                    dangerouslySetInnerHTML={{ __html: content }}
                 />
             </StyledProject>
-            <Footer/>
+
+            <Footer />
         </>
     );
 }

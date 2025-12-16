@@ -31,7 +31,9 @@ export const ImageContainer = styled.div`
 export const GalleryImage = styled.img`
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    max-height: 80vh;
+    max-width: 100vw;
+    object-fit: contain;
     transition: opacity 0.5s ease;
     user-select: none;
 `;
