@@ -2,8 +2,8 @@
    HOMEPAGE IMAGES
 ------------------------------------------------------- */
 const homepageImages = import.meta.glob(
-    "./DemoWebPages/**/HomePage/Images/*.{jpg,jpeg,png,webp}",
-    {eager: true}
+  "./DemoWebPages/**/HomePage/Images/*.{jpg,jpeg,png,webp}",
+  { eager: true }
 );
 
 /* -------------------------------------------------------
@@ -11,8 +11,8 @@ const homepageImages = import.meta.glob(
    Thumbnail images used on project listing page
 ------------------------------------------------------- */
 const projectImages = import.meta.glob(
-    "./DemoWebPages/**/Projects/MainProjectsImages/*.{jpg,jpeg,png,webp}",
-    {eager: true}
+  "./DemoWebPages/**/Projects/MainProjectsImages/*.{jpg,jpeg,png,webp}",
+  { eager: true }
 );
 
 /* -------------------------------------------------------
@@ -20,8 +20,8 @@ const projectImages = import.meta.glob(
    /DemoWebPages/<siteName>/ContactForm/Images/*
 ------------------------------------------------------- */
 const contactFormImages = import.meta.glob(
-    "./DemoWebPages/**/ContactForm/Images/*.{jpg,jpeg,png,webp}",
-    {eager: true}
+  "./DemoWebPages/**/ContactForm/Images/*.{jpg,jpeg,png,webp}",
+  { eager: true }
 );
 
 /* -------------------------------------------------------
@@ -29,42 +29,32 @@ const contactFormImages = import.meta.glob(
    Format: ProjectName-12.03.2023-444.webp
 ------------------------------------------------------- */
 function parseProjectFileName(fileName) {
-    const [projectInfo, projectDate, idWithExt] = fileName.split("-");
-    const id = idWithExt.split(".")[0]; // the number (e.g. 444)
+  const [projectInfo, projectDate, idWithExt] = fileName.split("-");
+  const id = idWithExt?.split(".")[0] ?? "";
 
-    return {
-        id,
-        projectInfo,
-        projectDate,
-    };
+  return { id, projectInfo, projectDate };
 }
 
 /* -------------------------------------------------------
    Get Project Cards for a given site
 ------------------------------------------------------- */
 function getSiteProjects(siteName) {
-    const basePath = `./DemoWebPages/${siteName}/Projects/MainProjectsImages/`;
+  const basePath = `./DemoWebPages/${siteName}/Projects/MainProjectsImages/`;
+  const projects = [];
 
-    const projects = [];
+  for (const path in projectImages) {
+    if (path.startsWith(basePath)) {
+      const mod = projectImages[path];
+      const imageUrl = mod.default;
+      const fileName = path.split("/").pop();
+      const info = parseProjectFileName(fileName);
 
-    for (const path in projectImages) {
-        if (path.startsWith(basePath)) {
-            const mod = projectImages[path];
-            const imageUrl = mod.default;
-            const fileName = path.split("/").pop();
-            const info = parseProjectFileName(fileName);
-
-            projects.push({
-                ...info,
-                image: imageUrl,
-            });
-        }
+      projects.push({ ...info, image: imageUrl });
     }
+  }
 
-    // Sort numerically by ID
-    projects.sort((a, b) => Number(a.id) - Number(b.id));
-
-    return projects;
+  projects.sort((a, b) => Number(a.id) - Number(b.id));
+  return projects;
 }
 
 /* -------------------------------------------------------
@@ -73,26 +63,26 @@ function getSiteProjects(siteName) {
    /DemoWebPages/<siteName>/Projects/<id>/Images/*
 ------------------------------------------------------- */
 const deepProjectImages = import.meta.glob(
-    "./DemoWebPages/**/Projects/*/Images/*.{jpg,jpeg,png,webp}",
-    {eager: true}
+  "./DemoWebPages/**/Projects/*/Images/*.{jpg,jpeg,png,webp}",
+  { eager: true }
 );
 
 function getProjectImages(siteName, projectId) {
-    const base = `./DemoWebPages/${siteName}/Projects/${projectId}/Images/`;
+  const base = `./DemoWebPages/${siteName}/Projects/${projectId}/Images/`;
 
-    return Object.keys(deepProjectImages)
-        .filter((p) => p.startsWith(base))
-        .map((p) => deepProjectImages[p].default)
-        .sort();
+  return Object.keys(deepProjectImages)
+    .filter((p) => p.startsWith(base))
+    .map((p) => deepProjectImages[p].default)
+    .sort();
 }
 
 function getContactFormImages(siteName) {
-    const base = `./DemoWebPages/${siteName}/ContactForm/Images/`;
+  const base = `./DemoWebPages/${siteName}/ContactForm/Images/`;
 
-    return Object.keys(contactFormImages)
-        .filter((p) => p.startsWith(base))
-        .map((p) => contactFormImages[p].default)
-        .sort();
+  return Object.keys(contactFormImages)
+    .filter((p) => p.startsWith(base))
+    .map((p) => contactFormImages[p].default)
+    .sort();
 }
 
 /* -------------------------------------------------------
@@ -101,61 +91,128 @@ function getContactFormImages(siteName) {
    /DemoWebPages/<siteName>/Projects/<id>/Text/<whatever>.txt
 ------------------------------------------------------- */
 const projectTextFiles = import.meta.glob(
-    "./DemoWebPages/**/Projects/*/Text/*.txt",
-    {eager: true, as: "raw"}
+  "./DemoWebPages/**/Projects/*/Text/*.txt",
+  { eager: true, as: "raw" }
 );
 
 async function getProjectRichText(siteName, projectId) {
-    const base = `./DemoWebPages/${siteName}/Projects/${projectId}/Text/`;
+  const base = `./DemoWebPages/${siteName}/Projects/${projectId}/Text/`;
 
-    // Locate the text file
-    const txtPath = Object.keys(projectTextFiles).find((p) =>
-        p.startsWith(base)
-    );
+  const txtPath = Object.keys(projectTextFiles).find((p) => p.startsWith(base));
 
-    if (!txtPath) {
-        console.warn(`No text file found for project ${projectId}`);
-        return {richText: ""};
-    }
+  if (!txtPath) {
+    console.warn(`No text file found for project ${projectId}`);
+    return { richText: "" };
+  }
 
-    const rawLink = projectTextFiles[txtPath].trim();
-    if (!rawLink) return {richText: ""};
+  const rawLink = projectTextFiles[txtPath].trim();
+  if (!rawLink) return { richText: "" };
 
-    // Convert Google Docs edit link to HTML export
-    const htmlLink = rawLink.replace(/\/edit.*$/, "/export?format=html");
+  const htmlLink = rawLink.replace(/\/edit.*$/, "/export?format=html");
 
-    try {
-        const response = await fetch(htmlLink);
-        const html = await response.text();
-        return {richText: html};
-    } catch (err) {
-        console.warn("Failed to fetch Google Docs HTML:", err);
-        return {richText: ""};
-    }
+  try {
+    const response = await fetch(htmlLink);
+    const html = await response.text();
+    return { richText: html };
+  } catch (err) {
+    console.warn("Failed to fetch Google Docs HTML:", err);
+    return { richText: "" };
+  }
 }
 
 /* -------------------------------------------------------
-   EXPORT API
+   BASIC INFO (BasicInfo.txt)
+   Loads from:
+   /DemoWebPages/<siteName>/BasicInfo.txt
+   Example file:
+     Name: AktisProjekt
+     Email: aktis.projekt@gmail.com
+     Phone: 01/5530-064
+------------------------------------------------------- */
+const basicInfoFiles = import.meta.glob("./DemoWebPages/**/BasicInfo.txt", {
+  eager: true,
+  as: "raw",
+});
+
+function parseBasicInfo(raw = "") {
+  const out = { Name: "", Email: "", Phone: "" };
+
+  raw
+    .split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter(Boolean)
+    .forEach((line) => {
+      const idx = line.indexOf(":");
+      if (idx === -1) return;
+
+      const key = line.slice(0, idx).trim();
+      const value = line.slice(idx + 1).trim();
+
+      if (key in out) out[key] = value;
+    });
+
+  return out;
+}
+
+/**
+ * If your route is like "/AktisProjekt/Projects/444"
+ * this returns "AktisProjekt".
+ * If your route structure differs, adjust this.
+ */
+function getSiteNameFromRoute(pathname = window.location.pathname) {
+  const parts = pathname.split("/").filter(Boolean);
+  return parts[0] || "";
+}
+
+/**
+ * Read and parse BasicInfo.txt for a site.
+ */
+function getBasicInfo(siteName) {
+  const targetPath = `./DemoWebPages/${siteName}/BasicInfo.txt`;
+  const raw = basicInfoFiles[targetPath];
+
+  if (!raw) {
+    console.warn(`No BasicInfo.txt found at: ${targetPath}`);
+    return { Name: "", Email: "", Phone: "" };
+  }
+
+  return parseBasicInfo(raw);
+}
+
+/**
+ * Convenience: get BasicInfo using the current route.
+ */
+function getBasicInfoFromRoute(pathname = window.location.pathname) {
+  const siteName = getSiteNameFromRoute(pathname);
+  return getBasicInfo(siteName);
+}
+
+/* -------------------------------------------------------
+   EXPORT API (Gateway)
 ------------------------------------------------------- */
 export default {
-    // Homepage images
-    getHomepageImages: (siteName) => {
-        const basePath = `./DemoWebPages/${siteName}/HomePage/Images/`;
-        return Object.keys(homepageImages)
-            .filter((p) => p.startsWith(basePath))
-            .map((p) => homepageImages[p].default);
-    },
+  // Homepage images
+  getHomepageImages: (siteName) => {
+    const basePath = `./DemoWebPages/${siteName}/HomePage/Images/`;
+    return Object.keys(homepageImages)
+      .filter((p) => p.startsWith(basePath))
+      .map((p) => homepageImages[p].default);
+  },
 
-    // Project cards (thumbnails)
-    getSiteProjects,
+  // Project cards (thumbnails)
+  getSiteProjects,
 
-    // Per-project gallery images
-    getProjectImages,
+  // Per-project gallery images
+  getProjectImages,
 
-    // Per-project Google Docs rich text
-    getProjectRichText,
+  // Per-project Google Docs rich text
+  getProjectRichText,
 
-    // Contact form images
-    getContactFormImages,
+  // Contact form images
+  getContactFormImages,
 
+  // Basic info
+  getBasicInfo,
+  getBasicInfoFromRoute,
+  getSiteNameFromRoute,
 };

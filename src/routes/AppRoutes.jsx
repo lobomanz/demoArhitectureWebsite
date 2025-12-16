@@ -16,7 +16,7 @@ export default function AppRoutes() {
                     path="/"
                     element={
                         <h2 style={{padding: "40px"}}>
-                            Pick a website: AktisProjekt, Arhi, StudioAlamat, StudioAlbahari, Vedoza...
+                            Welcome to the demo website :D
                         </h2>
                     }
                 />

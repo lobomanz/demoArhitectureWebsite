@@ -5,6 +5,7 @@ import Modal from "../../components/ContactModal";
 import Gateway from "../../Gateway.js";
 
 export default function Header() {
+  const { Name, Email, Phone } = Gateway.getBasicInfoFromRoute();
   const { siteName } = useParams();
   const location = useLocation();
 
@@ -80,7 +81,7 @@ export default function Header() {
     <>
       <HeaderWrapper className={`header ${!menuOpen ? "header-blur" : ""}`} >
         <Link className={`logo ${menuOpen ? "color-white" : ""}`} to={`/${siteName}`}>
-          studiom2n
+          {Name}
         </Link>
 
         {/* Desktop nav */}
