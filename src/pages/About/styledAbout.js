@@ -98,6 +98,7 @@ export const StyledAbout = styled.div`
           img {
             height: auto;
             max-height:600px;
+            max-width: 100%;
             object-fit: contain;
           }
         }
