@@ -15,7 +15,7 @@ export default function AboutUs() {
           <div className="hero-section">
             <div className="title-container">
               <h2>
-                Oblikujemo <br /> prostor <br /> gradimo <br />  vrijednost
+                Oblikujemo prostor <br /> gradimo <br />  vrijednost
               </h2>
             </div>
           </div>
