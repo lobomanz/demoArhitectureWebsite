@@ -86,10 +86,10 @@ export default function Header() {
 
         {/* Desktop nav */}
         <div className="navigation">
-          <Link to={`/${siteName}/projects`}>Projects</Link>
-          <Link to={`/${siteName}/about`}>About us</Link>
+          <Link to={`/${siteName}/projects`}>Projekti</Link>
+          <Link to={`/${siteName}/about`}>O nama</Link>
           <Link className="open-modal-btn" onClick={openModal}>
-            Contact
+            Kontakt
           </Link>
         </div>
 
