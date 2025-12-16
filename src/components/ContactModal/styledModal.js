@@ -47,6 +47,7 @@ export const ModalBackdrop = styled.div`
         transition: transform 0.15s ease, box-shadow 0.35s ease, border-color 0.35s ease;
         @media (max-width: 1080px) {
         right:-10px;
+        top:20px;
         }
     }
   }
