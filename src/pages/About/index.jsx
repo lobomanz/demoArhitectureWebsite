@@ -54,7 +54,7 @@ export default function AboutUs() {
             </div>
             <div className="section-two">
               <div className="section-two-container">
-                <h2>Naš pristup</h2>
+                <h2 style={{ color: "white" }}>Naš pristup</h2>
                 <p>
                   Naš proces započinje analizom – prostora, konteksta i potreba
                   korisnika. Svakom projektu pristupamo s uvjerenjem da
