@@ -7,11 +7,9 @@ export const HeaderWrapper = styled.header`
   width: calc(100% - 100px);
   z-index: 1000;
 
-  /* Header glass (unchanged) */
+  /* Header glass */
   background: rgba(255, 255, 255, 0.12);
-  
   -webkit-backdrop-filter: blur(5px);
-
 
   padding: 10px 50px;
   display: flex;
@@ -22,10 +20,15 @@ export const HeaderWrapper = styled.header`
   opacity: 0;
   isolation: isolate;
 
+  /* ✅ If the header already animated once, we disable transitions to avoid flicker */
+  &.no-intro-transition {
+    transition: none !important;
+  }
+
   &.header-blur {
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-}
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
 
   &.show {
     top: 0;
@@ -133,7 +136,7 @@ export const HeaderWrapper = styled.header`
       justify-content: center;
     }
 
-    /* 🔹 Overlay: slightly more blur than header */
+    /* Overlay */
     .mobile-overlay {
       display: block;
       position: fixed;
@@ -153,7 +156,7 @@ export const HeaderWrapper = styled.header`
       opacity: 1;
     }
 
-    /* 🔹 Panel: almost as blurry as header, slightly stronger */
+    /* Panel */
     .mobile-panel {
       position: absolute;
       inset: 0;
@@ -179,12 +182,11 @@ export const HeaderWrapper = styled.header`
       display: flex;
       flex-direction: column;
       gap: 14px;
-      
     }
 
     .mobile-links a,
     .mobile-links button {
-    text-decoration:none;
+      text-decoration: none;
       font-family: system-ui;
       font-size: 20px;
       text-align: left;

@@ -5,12 +5,16 @@ import Modal from "../../components/ContactModal";
 import Gateway from "../../Gateway.js";
 
 export default function Header() {
-  const { Name, Email, Phone } = Gateway.getBasicInfoFromRoute();
+  const { Name } = Gateway.getBasicInfoFromRoute();
   const { siteName } = useParams();
   const location = useLocation();
 
   const [isOpen, setIsOpen] = useState(false); // contact modal
   const [menuOpen, setMenuOpen] = useState(false); // mobile menu
+
+  // ✅ NEW: React-driven header visibility (prevents React re-render from removing .show)
+  const [headerShown, setHeaderShown] = useState(false);
+  const [noIntroTransition, setNoIntroTransition] = useState(false);
 
   const menuBtnRef = useRef(null);
 
@@ -45,7 +49,7 @@ export default function Header() {
     setMenuOpen(false);
   }, [location.pathname]);
 
-  // ESC to close menu
+  // ESC to close menu + modal
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -57,18 +61,17 @@ export default function Header() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [menuOpen, isOpen]);
 
-  // Your one-time header intro animation
+  // ✅ One-time header intro animation, but controlled via React state
   useEffect(() => {
     const hasAnimated = sessionStorage.getItem("headerAnimated");
-    const header = document.querySelector("header");
 
     if (!hasAnimated) {
-      header.classList.add("show");
+      setHeaderShown(true);
       sessionStorage.setItem("headerAnimated", "true");
     } else {
-      header.style.transition = "none";
-      header.style.top = "0";
-      header.style.opacity = "1";
+      // show instantly, no animation
+      setNoIntroTransition(true);
+      setHeaderShown(true);
     }
   }, []);
 
@@ -79,7 +82,14 @@ export default function Header() {
 
   return (
     <>
-      <HeaderWrapper className={`header ${!menuOpen ? "header-blur" : ""}`} >
+      <HeaderWrapper
+        className={[
+          "header",
+          headerShown ? "show" : "",
+          noIntroTransition ? "no-intro-transition" : "",
+          !menuOpen ? "header-blur" : "",
+        ].join(" ")}
+      >
         <Link className={`logo ${menuOpen ? "color-white" : ""}`} to={`/${siteName}`}>
           {Name}
         </Link>
@@ -118,13 +128,13 @@ export default function Header() {
         >
           <nav id="mobile-menu" className="mobile-panel">
             <div className="mobile-links">
-              <Link className="glass-link" to={`/${siteName}/projects`} onClick={closeMenu}>
+              <Link to={`/${siteName}/projects`} onClick={closeMenu}>
                 Projects
               </Link>
-              <Link className="glass-link" to={`/${siteName}/about`} onClick={closeMenu}>
+              <Link to={`/${siteName}/about`} onClick={closeMenu}>
                 About us
               </Link>
-              <button className="glass-link" type="button" onClick={onContactClick}>
+              <button type="button" onClick={onContactClick}>
                 Contact
               </button>
             </div>
