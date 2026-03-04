@@ -1,15 +1,22 @@
 import React from "react";
 import { StyledAbout } from "./styledAbout.js";
 import { t } from "../../utils/i18n.js";
+import { getAboutImages } from "../../content/siteData.js";
 
 import Footer from "../../components/Footer/index.jsx";
 import Header from "../../components/Header/index.jsx";
 
 export default function AboutUs() {
+  const aboutImages = getAboutImages();
+
+  const heroImg = aboutImages[t("about.hero_img")];
+  const section1img = aboutImages[t("about.section1_img")];
+  const section3img = aboutImages[t("about.section3_img")];
+
   return (
     <>
       <Header />
-      <StyledAbout>
+      <StyledAbout $heroImg={heroImg}>
         <div className="container">
           <div className="hero-section">
             <div className="title-container">
@@ -27,7 +34,7 @@ export default function AboutUs() {
                 </div>
               </div>
               <div className="right-container">
-                <img src={t("about.section1_img")} alt="slika" />
+                <img src={section1img} alt="slika" />
               </div>
             </div>
             <div className="section-two">
@@ -38,7 +45,7 @@ export default function AboutUs() {
             </div>
             <div className="section-three">
               <div className="left-container">
-                <img src={t("about.section3_img")} alt="slika" />
+                <img src={section3img} alt="slika" />
               </div>
               <div className="right-container">
                 <div className="section-three-title">

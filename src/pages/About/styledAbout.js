@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import heroImg from "../../content/About/aboutimg1.jpg";
 
 export const StyledAbout = styled.div`
   height: 100%;
@@ -34,7 +33,7 @@ export const StyledAbout = styled.div`
         content: "";
         position: absolute;
         inset: 0;
-        background-image: url(${heroImg});
+        background-image: url(${(props) => props.$heroImg});
         background-size: cover;
         background-position: center;
         filter: blur(40px);

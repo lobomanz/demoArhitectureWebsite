@@ -58,8 +58,25 @@ function parseProjectFileName(fileName) {
 }
 
 /* -------------------------------------------------------
+   ABOUT IMAGES
+------------------------------------------------------- */
+const aboutImages = import.meta.glob(
+  "./About/*.{jpg,jpeg,png,webp}",
+  { eager: true }
+);
+
+/* -------------------------------------------------------
    EXPORTS
 ------------------------------------------------------- */
+
+export const getAboutImages = () => {
+  const images = {};
+  for (const path in aboutImages) {
+    const fileName = path.split("/").pop();
+    images[fileName] = aboutImages[path].default;
+  }
+  return images;
+};
 
 export const getHomepageImages = () => {
   return Object.values(homepageImages).map(mod => mod.default);
