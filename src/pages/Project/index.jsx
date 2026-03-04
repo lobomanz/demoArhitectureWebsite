@@ -11,15 +11,20 @@ export default function ProjectSingle() {
     const { projectId } = useParams();
     const location = useLocation();
 
-    // Get ?title= from the query string
+    // 1. Try to get title from localization using projectId
+    // 2. Fallback to ?title= from the query string
+    // 3. Fallback to "UntitledProject"
+    const localizedProject = t(`projects_data.${projectId}`);
     const searchParams = new URLSearchParams(location.search);
-    const rawTitle = searchParams.get("title") || t("project.untitled");
+    const rawTitle = localizedProject?.title || searchParams.get("title") || t("project.untitled");
 
-    // Convert "MyAwesomeTitle" -> "My Awesome Title"
-    const formattedTitle = rawTitle
-        .replace(/([A-Z])/g, " $1")
-        .replace(/^./, str => str.toUpperCase())
-        .trim();
+    // Format if it was a camelCase fallback
+    const formattedTitle = rawTitle.includes(" ") 
+        ? rawTitle 
+        : rawTitle
+            .replace(/([A-Z])/g, " $1")
+            .replace(/^./, str => str.toUpperCase())
+            .trim();
 
     const [images, setImages] = useState([]);
     const [content, setContent] = useState("");

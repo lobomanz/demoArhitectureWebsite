@@ -39,8 +39,22 @@
   "project": {
     "untitled": "UntitledProject"
   },
+  "homepage": {
+    "no_images": "No images found for this site."
+  },
   "gallery": {
     "previous": "Previous image",
     "next": "Next image"
+  },
+  "months": [
+    "Siječanj", "Veljača", "Ožujak", "Travanj", "Svibanj", "Lipanj",
+    "Srpanj", "Kolovoz", "Rujan", "Listopad", "Studeni", "Prosinac"
+  ],
+  "projects_data": {
+    "111": { "title": "Rogoznica Kamena Kuća", "date": "12.03.2023" },
+    "222": { "title": "Vila Zagorje", "date": "17.05.2021" },
+    "333": { "title": "Planinarski Dom Gorski Kotar", "date": "22.06.2019" },
+    "444": { "title": "Vila Petrčane", "date": "13.03.2022" },
+    "555": { "title": "Obiteljska Kuća Varaždin", "date": "23.07.2023" }
   }
 }

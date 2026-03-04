@@ -2,6 +2,7 @@ import React from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {StyledSwiper} from "./styledHomepageSwiper.js";
 import {Mousewheel, Pagination, Autoplay} from "swiper/modules";
+import { t } from "../../../../utils/i18n.js";
 
 export default function HomepageSwiper({images = []}) {
     // images defaults to [] (fixes map undefined error)
@@ -34,7 +35,7 @@ export default function HomepageSwiper({images = []}) {
                                 color: "#aaa",
                             }}
                         >
-                            No images found for this site.
+                            {t("homepage.no_images")}
                         </div>
                     </SwiperSlide>
                 )}
