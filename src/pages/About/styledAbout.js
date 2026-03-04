@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import heroImg from "../../assets/About/aboutimg1.jpg";
+import heroImg from "../../content/About/aboutimg1.jpg";
 
 export const StyledAbout = styled.div`
   height: 100%;
