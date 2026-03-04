@@ -3,11 +3,12 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 
-import gateway from "../../Gateway.js";
 import { t } from "../../utils/i18n.js";
 
 export default function Footer() {
-  const { Name, Email, Phone } = gateway.getBasicInfoFromRoute();
+  const Name = t("site.name");
+  const Email = t("site.email");
+  const Phone = t("site.phone");
 
   return (
     <StyledFooter className="footer-wrapper">
@@ -24,6 +25,7 @@ export default function Footer() {
             )}
             {Phone}
           </div>
+...
 
           <div className="socials">
             <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">

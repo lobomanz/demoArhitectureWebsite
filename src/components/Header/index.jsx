@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useState, useRef } from "react";
-import { useParams, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HeaderWrapper } from "./styledHeader";
 import Modal from "../../components/ContactModal";
-import Gateway from "../../Gateway.js";
+import { getContactFormImages } from "../../content/siteData.js";
 import { t } from "../../utils/i18n.js";
 
 export default function Header() {
-  const { Name } = Gateway.getBasicInfoFromRoute();
-  const { siteName } = useParams();
   const location = useLocation();
 
   const [isOpen, setIsOpen] = useState(false); // contact modal
@@ -20,9 +18,8 @@ export default function Header() {
   const menuBtnRef = useRef(null);
 
   const images = useMemo(() => {
-    if (!siteName) return [];
-    return Gateway.getContactFormImages(siteName);
-  }, [siteName]);
+    return getContactFormImages();
+  }, []);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -91,14 +88,14 @@ export default function Header() {
           !menuOpen ? "header-blur" : "",
         ].join(" ")}
       >
-        <Link className={`logo ${menuOpen ? "color-white" : ""}`} to={`/${siteName}`}>
-          {Name}
+        <Link className={`logo ${menuOpen ? "color-white" : ""}`} to="/homepage">
+          {t("site.name")}
         </Link>
 
         {/* Desktop nav */}
         <div className="navigation">
-          <Link to={`/${siteName}/projects`}>{t("header.projects")}</Link>
-          <Link to={`/${siteName}/about`}>{t("header.about")}</Link>
+          <Link to="/projects">{t("header.projects")}</Link>
+          <Link to="/about">{t("header.about")}</Link>
           <Link className="open-modal-btn" onClick={openModal}>
             {t("header.contact")}
           </Link>
@@ -129,10 +126,10 @@ export default function Header() {
         >
           <nav id="mobile-menu" className="mobile-panel">
             <div className="mobile-links">
-              <Link to={`/${siteName}/projects`} onClick={closeMenu}>
+              <Link to="/projects" onClick={closeMenu}>
                 {t("header.projects")}
               </Link>
-              <Link to={`/${siteName}/about`} onClick={closeMenu}>
+              <Link to="/about" onClick={closeMenu}>
                 {t("header.about")}
               </Link>
               <button type="button" onClick={onContactClick}>

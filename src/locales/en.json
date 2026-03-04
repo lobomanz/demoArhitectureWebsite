@@ -1,4 +1,9 @@
 {
+  "site": {
+    "name": "AktisProjekt",
+    "email": "aktis.projekt@gmail.com",
+    "phone": "01/5530-064"
+  },
   "header": {
     "projects": "Projekti",
     "about": "O nama",

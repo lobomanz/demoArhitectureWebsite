@@ -1,6 +1,6 @@
 import { useParams, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Gateway from "../../Gateway";
+import { getProjectImages, getProjectRichText } from "../../content/siteData";
 import Gallery from "../../components/Gallery/index.jsx";
 import { StyledProject } from "./styledProject.js";
 import Header from "../../components/Header/index.jsx";
@@ -8,7 +8,7 @@ import Footer from "../../components/Footer/index.jsx";
 import { t } from "../../utils/i18n.js";
 
 export default function ProjectSingle() {
-    const { siteName, projectId } = useParams();
+    const { projectId } = useParams();
     const location = useLocation();
 
     // Get ?title= from the query string
@@ -31,13 +31,13 @@ export default function ProjectSingle() {
         let cancelled = false;
 
         async function loadImages() {
-            const imgs = await Gateway.getProjectImages(siteName, projectId);
+            const imgs = await getProjectImages(projectId);
             if (!cancelled) setImages(imgs);
         }
 
         loadImages();
         return () => (cancelled = true);
-    }, [siteName, projectId]);
+    }, [projectId]);
 
     /* ------------------------------------------------------
        LOAD GOOGLE DOCS RICH TEXT
@@ -46,7 +46,7 @@ export default function ProjectSingle() {
         let cancelled = false;
 
         async function loadText() {
-            const res = await Gateway.getProjectRichText(siteName, projectId);
+            const res = await getProjectRichText(projectId);
             if (!cancelled && res?.richText) {
                 setContent(res.richText);
             }
@@ -54,7 +54,7 @@ export default function ProjectSingle() {
 
         loadText();
         return () => (cancelled = true);
-    }, [siteName, projectId]);
+    }, [projectId]);
 
     return (
         <>
