@@ -5,6 +5,7 @@ import Gallery from "../../components/Gallery/index.jsx";
 import { StyledProject } from "./styledProject.js";
 import Header from "../../components/Header/index.jsx";
 import Footer from "../../components/Footer/index.jsx";
+import { t } from "../../utils/i18n.js";
 
 export default function ProjectSingle() {
     const { siteName, projectId } = useParams();
@@ -12,7 +13,7 @@ export default function ProjectSingle() {
 
     // Get ?title= from the query string
     const searchParams = new URLSearchParams(location.search);
-    const rawTitle = searchParams.get("title") || "UntitledProject";
+    const rawTitle = searchParams.get("title") || t("project.untitled");
 
     // Convert "MyAwesomeTitle" -> "My Awesome Title"
     const formattedTitle = rawTitle

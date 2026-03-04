@@ -4,6 +4,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 
 import gateway from "../../Gateway.js";
+import { t } from "../../utils/i18n.js";
 
 export default function Footer() {
   const { Name, Email, Phone } = gateway.getBasicInfoFromRoute();
@@ -12,13 +13,13 @@ export default function Footer() {
     <StyledFooter className="footer-wrapper">
       <div className="footer-container">
         <div className="contact">
-          <div className="title">Contact us at</div>
+          <div className="title">{t("footer.contact_us")}</div>
 
           <div className="email">
             {Email && (
               <>
                 <a href={`mailto:${Email}`}>{Email}</a>
-                {Phone && " or at "}
+                {Phone && t("footer.or_at")}
               </>
             )}
             {Phone}
@@ -38,7 +39,7 @@ export default function Footer() {
         </div>
 
         <div className="copyright">
-          COPYRIGHT©2025 {Name}
+          {t("footer.copyright")} {Name}
         </div>
       </div>
     </StyledFooter>

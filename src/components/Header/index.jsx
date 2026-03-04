@@ -3,6 +3,7 @@ import { useParams, Link, useLocation } from "react-router-dom";
 import { HeaderWrapper } from "./styledHeader";
 import Modal from "../../components/ContactModal";
 import Gateway from "../../Gateway.js";
+import { t } from "../../utils/i18n.js";
 
 export default function Header() {
   const { Name } = Gateway.getBasicInfoFromRoute();
@@ -96,10 +97,10 @@ export default function Header() {
 
         {/* Desktop nav */}
         <div className="navigation">
-          <Link to={`/${siteName}/projects`}>Projekti</Link>
-          <Link to={`/${siteName}/about`}>O nama</Link>
+          <Link to={`/${siteName}/projects`}>{t("header.projects")}</Link>
+          <Link to={`/${siteName}/about`}>{t("header.about")}</Link>
           <Link className="open-modal-btn" onClick={openModal}>
-            Kontakt
+            {t("header.contact")}
           </Link>
         </div>
 
@@ -129,13 +130,13 @@ export default function Header() {
           <nav id="mobile-menu" className="mobile-panel">
             <div className="mobile-links">
               <Link to={`/${siteName}/projects`} onClick={closeMenu}>
-                Projects
+                {t("header.projects")}
               </Link>
               <Link to={`/${siteName}/about`} onClick={closeMenu}>
-                About us
+                {t("header.about")}
               </Link>
               <button type="button" onClick={onContactClick}>
-                Contact
+                {t("header.contact")}
               </button>
             </div>
           </nav>

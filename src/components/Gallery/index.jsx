@@ -9,6 +9,7 @@ import {
     RightWrapper,
     Counter
 } from "./styledGallery";
+import { t } from "../../utils/i18n.js";
 
 export default function Gallery({ images = [], mode = "1" }) {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -61,7 +62,7 @@ export default function Gallery({ images = [], mode = "1" }) {
                 <ChevronButton
                     className="left-one"
                     onClick={prevImage}
-                    aria-label="Previous image"
+                    aria-label={t("gallery.previous")}
                 />
             </LeftWrapper>
 
@@ -79,7 +80,7 @@ export default function Gallery({ images = [], mode = "1" }) {
                 <ChevronButton
                     className="right-one"
                     onClick={nextImage}
-                    aria-label="Next image"
+                    aria-label={t("gallery.next")}
                 />
             </RightWrapper>
 

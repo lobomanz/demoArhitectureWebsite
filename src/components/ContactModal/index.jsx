@@ -12,6 +12,7 @@ import {
   Input,
   Textarea,
 } from "./styledModal";
+import { t } from "../../utils/i18n.js";
 
 export default function Modal({ isOpen, onClose, images = [] }) {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -62,13 +63,13 @@ export default function Modal({ isOpen, onClose, images = [] }) {
           </ModalLeft>
 
           <ModalRight>
-            <h2 className="contact-title">Contact Us</h2>
+            <h2 className="contact-title">{t("contact_modal.title")}</h2>
 
             <Form onSubmit={handleSubmit}>
               <Input
                 type="text"
                 name="name"
-                placeholder="Your Name"
+                placeholder={t("contact_modal.name_placeholder")}
                 value={formData.name}
                 onChange={handleChange}
                 required
@@ -77,7 +78,7 @@ export default function Modal({ isOpen, onClose, images = [] }) {
               <Input
                 type="email"
                 name="email"
-                placeholder="Your Email"
+                placeholder={t("contact_modal.email_placeholder")}
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -86,7 +87,7 @@ export default function Modal({ isOpen, onClose, images = [] }) {
               <Textarea
                 className="message"
                 name="message"
-                placeholder="Your Message"
+                placeholder={t("contact_modal.message_placeholder")}
                 value={formData.message}
                 onChange={handleChange}
                 rows={5}
@@ -94,7 +95,7 @@ export default function Modal({ isOpen, onClose, images = [] }) {
               />
 
               <button type="submit" className="btn">
-                Send
+                {t("contact_modal.send_button")}
               </button>
             </Form>
           </ModalRight>
