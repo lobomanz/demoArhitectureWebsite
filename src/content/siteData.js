@@ -1,119 +1,82 @@
-// Site Data - replaces the dynamic Gateway logic
-// Uses Vite's glob import to automatically find assets in the src/content folder
+import { t } from "../utils/i18n";
 
 /* -------------------------------------------------------
-   HOMEPAGE IMAGES
+   IMAGE GLOBS (for resolving hashed URLs)
 ------------------------------------------------------- */
-const homepageImages = import.meta.glob(
-  "./HomePage/*.{jpg,jpeg,png,webp}",
-  { eager: true }
-);
-
-/* -------------------------------------------------------
-   PROJECT CARD IMAGES
-------------------------------------------------------- */
-const projectCardImages = import.meta.glob(
-  "./Projects/MainProjectsImages/*.{jpg,jpeg,png,webp}",
-  { eager: true }
-);
-
-/* -------------------------------------------------------
-   CONTACT FORM IMAGES
-------------------------------------------------------- */
-const contactFormImages = import.meta.glob(
-  "./ContactForm/*.{jpg,jpeg,png,webp}",
-  { eager: true }
-);
-
-/* -------------------------------------------------------
-   DEEP PROJECT IMAGES (per project gallery)
-   Assumes structure: src/content/Projects/<id>/Images/*
-------------------------------------------------------- */
-const deepProjectImages = import.meta.glob(
-  "./Projects/*/Images/*.{jpg,jpeg,png,webp}",
-  { eager: true }
-);
-
-/* -------------------------------------------------------
-   PROJECT RICH TEXT LINKS
-   Assumes structure: src/content/Projects/<id>/Text/*.txt
-------------------------------------------------------- */
-const projectTextFiles = import.meta.glob(
-  "./Projects/*/Text/*.txt",
-  { eager: true, as: "raw" }
-);
+const homepageImagesGlob = import.meta.glob("./HomePage/*.{jpg,jpeg,png,webp}", { eager: true });
+const projectCardImagesGlob = import.meta.glob("./Projects/MainProjectsImages/*.{jpg,jpeg,png,webp}", { eager: true });
+const contactFormImagesGlob = import.meta.glob("./ContactForm/*.{jpg,jpeg,png,webp}", { eager: true });
+const deepProjectImagesGlob = import.meta.glob("./Projects/*/Images/*.{jpg,jpeg,png,webp}", { eager: true });
+const aboutImagesGlob = import.meta.glob("./About/*.{jpg,jpeg,png,webp}", { eager: true });
 
 /* -------------------------------------------------------
    HELPERS
 ------------------------------------------------------- */
-function parseProjectFileName(fileName) {
-  // Format: ProjectName-Date-ID.ext
-  const parts = fileName.split("-");
-  if (parts.length < 3) return { id: fileName, projectInfo: fileName, projectDate: "" };
-  
-  const [projectInfo, projectDate, idWithExt] = parts;
-  const id = idWithExt?.split(".")[0] ?? "";
-
-  return { id, projectInfo, projectDate };
-}
-
-/* -------------------------------------------------------
-   ABOUT IMAGES
-------------------------------------------------------- */
-const aboutImages = import.meta.glob(
-  "./About/*.{jpg,jpeg,png,webp}",
-  { eager: true }
-);
+const resolveImage = (glob, filename) => {
+  for (const path in glob) {
+    if (path.endsWith(filename)) {
+      return glob[path].default;
+    }
+  }
+  return null;
+};
 
 /* -------------------------------------------------------
    EXPORTS
 ------------------------------------------------------- */
 
+export const getHomepageImages = () => {
+  const filenames = t("homepage.images") || [];
+  return filenames.map(name => resolveImage(homepageImagesGlob, name)).filter(Boolean);
+};
+
+export const getContactFormImages = () => {
+  const filenames = t("contact_modal.images") || [];
+  return filenames.map(name => resolveImage(contactFormImagesGlob, name)).filter(Boolean);
+};
+
 export const getAboutImages = () => {
   const images = {};
-  for (const path in aboutImages) {
+  for (const path in aboutImagesGlob) {
     const fileName = path.split("/").pop();
-    images[fileName] = aboutImages[path].default;
+    images[fileName] = aboutImagesGlob[path].default;
   }
   return images;
 };
 
-export const getHomepageImages = () => {
-  return Object.values(homepageImages).map(mod => mod.default);
-};
-
-export const getContactFormImages = () => {
-  return Object.values(contactFormImages).map(mod => mod.default);
-};
-
 export const getProjects = () => {
-  const projects = [];
-  for (const path in projectCardImages) {
-    const mod = projectCardImages[path];
-    const fileName = path.split("/").pop();
-    const info = parseProjectFileName(fileName);
-    projects.push({ ...info, image: mod.default });
-  }
-  return projects.sort((a, b) => Number(a.id) - Number(b.id));
+  const projectsMap = t("projects_data") || {};
+  return Object.keys(projectsMap).map(id => {
+    const data = projectsMap[id];
+    return {
+      id,
+      ...data,
+      image: resolveImage(projectCardImagesGlob, data.thumbnail)
+    };
+  }).sort((a, b) => Number(a.id) - Number(b.id));
 };
 
 export const getProjectImages = (projectId) => {
-  const base = `./Projects/${projectId}/Images/`;
-  return Object.keys(deepProjectImages)
-    .filter((p) => p.startsWith(base))
-    .map((p) => deepProjectImages[p].default)
-    .sort();
+  const data = t(`projects_data.${projectId}`);
+  if (!data || !data.gallery) return [];
+  
+  return data.gallery.map(name => {
+      // Gallery images are in ./Projects/<id>/Images/
+      // The glob has paths like ./Projects/111/Images/img.png
+      for (const path in deepProjectImagesGlob) {
+          if (path.includes(`/${projectId}/Images/`) && path.endsWith(name)) {
+              return deepProjectImagesGlob[path].default;
+          }
+      }
+      return null;
+  }).filter(Boolean);
 };
 
 export async function getProjectRichText(projectId) {
-  const base = `./Projects/${projectId}/Text/`;
-  const txtPath = Object.keys(projectTextFiles).find((p) => p.startsWith(base));
+  const data = t(`projects_data.${projectId}`);
+  if (!data || !data.text_url) return { richText: "" };
 
-  if (!txtPath) return { richText: "" };
-
-  const rawLink = projectTextFiles[txtPath].trim();
-  if (!rawLink) return { richText: "" };
-
+  const rawLink = data.text_url.trim();
   const htmlLink = rawLink.replace(/\/edit.*$/, "/export?format=html");
 
   try {

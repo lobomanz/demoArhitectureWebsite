@@ -12,10 +12,8 @@ import { t } from "../../../../utils/i18n.js";
 export default function ProjectCard({ info }) {
     const [hover, setHover] = useState(false);
 
-    // Get localized data or fallback to parsed filename info
-    const localizedProject = t(`projects_data.${info.id}`);
-    const projectTitle = localizedProject?.title || info.projectInfo.replace(/(?!^)([A-Z])/g, " $1");
-    const rawDate = localizedProject?.date || info.projectDate;
+    const projectTitle = info.title;
+    const rawDate = info.date;
 
     // Format date → "MonthName, Year"
     const formatDate = (dateString) => {

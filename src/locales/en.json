@@ -14,6 +14,26 @@
     "or_at": " or at ",
     "copyright": "COPYRIGHT©2025"
   },
+  "homepage": {
+    "no_images": "No images found for this site.",
+    "images": [
+      "ObiteljskaKućaVaraždin-23.07.2023-555.png",
+      "PlaninarskiDomGorskiKotar-22.06.2019-333.png",
+      "RogoznicaKamenaKuća-12.03.2023-111.png",
+      "VilaPetrčane-13.03.2022.-444.png",
+      "VilaZagorje-17.05.2021-222.png"
+    ]
+  },
+  "contact_modal": {
+    "title": "Contact Us",
+    "name_placeholder": "Your Name",
+    "email_placeholder": "Your Email",
+    "message_placeholder": "Your Message",
+    "send_button": "Send",
+    "images": [
+      "image4.webp"
+    ]
+  },
   "about": {
     "hero_title": "Oblikujemo prostor <br /> gradimo <br /> vrijednost",
     "hero_img": "aboutimg1.jpg",
@@ -23,24 +43,13 @@
     "section2_title": "Naš pristup",
     "section2_desc": "Naš proces započinje analizom – prostora, konteksta i potreba korisnika. Svakom projektu pristupamo s uvjerenjem da arhitektura mora biti rezultat jasne ideje i promišljene odluke, a ne slučajnog oblika. Kroz istraživanje i dijalog oblikujemo rješenja koja su funkcionalna, racionalna i estetski uravnotežena. Posebnu važnost pridajemo odnosu između prostora i njegovog okruženja. Bilo da se radi o urbanom ili prirodnom kontekstu, nastojimo stvoriti arhitekturu koja se nadovezuje na postojeće vrijednosti i suptilno ih reinterpretira kroz suvremeni izraz. Tijekom cijelog procesa njegujemo blisku suradnju s klijentima, vjerujući da je povjerenje temelj kvalitetnog projekta. Jasna komunikacija, preciznost u planiranju i kontrola kvalitete ključni su elementi našeg rada, od prve skice do realizacije. Naš cilj je arhitektura koja je dugoročno održiva, prostorno jasna i prilagođena svakodnevnom životu – arhitektura koja traje.",
     "section3_img": "about-section-2-img.png",
-
     "section3_title1": "Filozofija dizajna",
     "section3_desc1": "Našu filozofiju dizajna definiraju jasnoća, suzdržanost i svrha. Smatramo da arhitektura treba biti razumljiva, logična i oslobođena suvišnih elemenata. Forma proizlazi iz funkcije, ali istovremeno odgovara na emocionalni i prostorni doživljaj korisnika. Kroz pažljiv odabir materijala, proporcija i svjetla stvaramo prostore koji su mirni, uravnoteženi i trajni. Ne težimo trendovima, već arhitekturi koja s vremenom dobiva na vrijednosti i prirodno stari zajedno sa svojim korisnicima.",
     "section3_title2": "Suradnja i proces",
     "section3_desc2": "Vjerujemo da je kvalitetna arhitektura rezultat timskog rada. Tijekom cijelog projekta usko surađujemo s investitorima, inženjerima i izvođačima kako bismo osigurali jasnoću u svakoj fazi – od idejnog rješenja do završne realizacije. Naš proces temelji se na preciznosti, odgovornosti i kontinuiranom nadzoru. Svaki korak promatramo kao priliku za poboljšanje ukupne kvalitete prostora, uz stalno poštovanje budžeta, rokova i tehničkih zahtjeva."
   },
-  "contact_modal": {
-    "title": "Contact Us",
-    "name_placeholder": "Your Name",
-    "email_placeholder": "Your Email",
-    "message_placeholder": "Your Message",
-    "send_button": "Send"
-  },
   "project": {
     "untitled": "UntitledProject"
-  },
-  "homepage": {
-    "no_images": "No images found for this site."
   },
   "gallery": {
     "previous": "Previous image",
@@ -51,10 +60,60 @@
     "Srpanj", "Kolovoz", "Rujan", "Listopad", "Studeni", "Prosinac"
   ],
   "projects_data": {
-    "111": { "title": "Rogoznica Kamena Kuća", "date": "12.03.2023" },
-    "222": { "title": "Vila Zagorje", "date": "17.05.2021" },
-    "333": { "title": "Planinarski Dom Gorski Kotar", "date": "22.06.2019" },
-    "444": { "title": "Vila Petrčane", "date": "13.03.2022" },
-    "555": { "title": "Obiteljska Kuća Varaždin", "date": "23.07.2023" }
+    "111": {
+      "title": "Rogoznica Kamena Kuća",
+      "date": "12.03.2023",
+      "thumbnail": "RogoznicaKamenaKuća-12.03.2023-111.png",
+      "gallery": [
+        "ChatGPT Image Feb 2, 2026, 02_31_56 PM.png",
+        "ChatGPT Image Feb 2, 2026, 02_35_28 PM.png",
+        "ChatGPT Image Feb 2, 2026, 02_37_28 PM.png"
+      ],
+      "text_url": "https://docs.google.com/document/d/1X-v9_0-G-XW-Y_8_Y-Z_X-V-Z_X-Y-Z_X-V-Z_X-Y-Z/edit"
+    },
+    "222": {
+      "title": "Vila Zagorje",
+      "date": "17.05.2021",
+      "thumbnail": "VilaZagorje-17.05.2021-222.png",
+      "gallery": [
+        "ChatGPT Image Feb 2, 2026, 02_58_37 PM.png",
+        "ChatGPT Image Feb 2, 2026, 03_00_35 PM.png",
+        "ChatGPT Image Feb 2, 2026, 03_03_50 PM.png"
+      ],
+      "text_url": "https://docs.google.com/document/d/1X-v9_0-G-XW-Y_8_Y-Z_X-V-Z_X-Y-Z_X-V-Z_X-Y-Z/edit"
+    },
+    "333": {
+      "title": "Planinarski Dom Gorski Kotar",
+      "date": "22.06.2019",
+      "thumbnail": "PlaninarskiDomGorskiKotar-22.06.2019-333.png",
+      "gallery": [
+        "ChatGPT Image Feb 2, 2026, 02_41_43 PM.png",
+        "ChatGPT Image Feb 2, 2026, 02_44_00 PM.png",
+        "ChatGPT Image Feb 2, 2026, 02_46_12 PM.png"
+      ],
+      "text_url": "https://docs.google.com/document/d/1X-v9_0-G-XW-Y_8_Y-Z_X-V-Z_X-Y-Z_X-V-Z_X-Y-Z/edit"
+    },
+    "444": {
+      "title": "Vila Petrčane",
+      "date": "13.03.2022",
+      "thumbnail": "VilaPetrčane-13.03.2022.-444.png",
+      "gallery": [
+        "petrcae_2.png",
+        "petrcane.png",
+        "petrcane_3.png"
+      ],
+      "text_url": "https://docs.google.com/document/d/1X-v9_0-G-XW-Y_8_Y-Z_X-V-Z_X-Y-Z_X-V-Z_X-Y-Z/edit"
+    },
+    "555": {
+      "title": "Obiteljska Kuća Varaždin",
+      "date": "23.07.2023",
+      "thumbnail": "ObiteljskaKućaVaraždin-23.07.2023-555.png",
+      "gallery": [
+        "ChatGPT Image Feb 2, 2026, 02_50_16 PM.png",
+        "ChatGPT Image Feb 2, 2026, 02_52_03 PM.png",
+        "ChatGPT Image Feb 2, 2026, 02_53_58 PM.png"
+      ],
+      "text_url": "https://docs.google.com/document/d/1X-v9_0-G-XW-Y_8_Y-Z_X-V-Z_X-Y-Z_X-V-Z_X-Y-Z/edit"
+    }
   }
 }
