@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { HeaderWrapper } from "./styledHeader";
 import Modal from "../../components/ContactModal";
 import { getContactFormImages } from "../../content/siteData.js";
 import { t } from "../../utils/i18n.js";
 
 export default function Header() {
+  const { siteName } = useParams();
   const location = useLocation();
 
   const [isOpen, setIsOpen] = useState(false); // contact modal
@@ -88,14 +89,14 @@ export default function Header() {
           !menuOpen ? "header-blur" : "",
         ].join(" ")}
       >
-        <Link className={`logo ${menuOpen ? "color-white" : ""}`} to="/homepage">
+        <Link className={`logo ${menuOpen ? "color-white" : ""}`} to={`/${siteName}/homepage`}>
           {t("site.name")}
         </Link>
 
         {/* Desktop nav */}
         <div className="navigation">
-          <Link to="/projects">{t("header.projects")}</Link>
-          <Link to="/about">{t("header.about")}</Link>
+          <Link to={`/${siteName}/projects`}>{t("header.projects")}</Link>
+          <Link to={`/${siteName}/about`}>{t("header.about")}</Link>
           <Link className="open-modal-btn" onClick={openModal}>
             {t("header.contact")}
           </Link>
@@ -126,10 +127,10 @@ export default function Header() {
         >
           <nav id="mobile-menu" className="mobile-panel">
             <div className="mobile-links">
-              <Link to="/projects" onClick={closeMenu}>
+              <Link to={`/${siteName}/projects`} onClick={closeMenu}>
                 {t("header.projects")}
               </Link>
-              <Link to="/about" onClick={closeMenu}>
+              <Link to={`/${siteName}/about`} onClick={closeMenu}>
                 {t("header.about")}
               </Link>
               <button type="button" onClick={onContactClick}>
