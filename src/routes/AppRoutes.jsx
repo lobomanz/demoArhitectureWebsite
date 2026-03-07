@@ -18,7 +18,7 @@ const DataLoader = ({ children }) => {
   useEffect(() => {
     if (!siteName) return;
 
-    setLoading(true);
+    // setLoading(true);
     fetch(`https://arhit.eu/api/PreviewSites/${siteName}`)
       .then((res) => {
         if (!res.ok) throw new Error("API call failed");
