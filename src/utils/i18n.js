@@ -53,6 +53,7 @@ export const t = (key) => {
 export const updateTranslations = (newData, lang = 'en') => {
   // We merge into a fresh copy of the original en.json to ensure 
   // we don't carry over stale data from a previous site's fetch
+  console.log("Updating translations with API data:", newData);
   const base = JSON.parse(JSON.stringify(en));
   translations[lang] = mergeDeep(base, newData);
 };
