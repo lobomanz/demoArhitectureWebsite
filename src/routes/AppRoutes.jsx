@@ -19,7 +19,7 @@ const DataLoader = ({ children }) => {
     if (!siteName) return;
 
     setLoading(true);
-    fetch(`https://arhit.eu/api/PreviewSites/by-name?name=${siteName}`)
+    fetch(`https://arhit.eu/api/PreviewSites/${siteName}`)
       .then((res) => {
         if (!res.ok) throw new Error("API call failed");
         return res.json();
