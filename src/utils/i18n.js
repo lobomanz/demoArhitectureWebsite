@@ -56,6 +56,7 @@ export const updateTranslations = (newData, lang = 'en') => {
   console.log("Updating translations with API data:", newData);
   const base = JSON.parse(JSON.stringify(en));
   translations[lang] = mergeDeep(base, newData);
+  console.log("Updated translations:", translations[lang]);
 };
 
 export default { t, updateTranslations };
