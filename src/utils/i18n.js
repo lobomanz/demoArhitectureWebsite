@@ -109,6 +109,11 @@ function mergeDeep(target, source) {
     } 
     // Only replace if source value is not empty/null/undefined
     else if (sourceValue !== "" && sourceValue !== null && sourceValue !== undefined) {
+      // If the source is an empty array and the target is a non-empty array, do not overwrite
+      if (Array.isArray(sourceValue) && sourceValue.length === 0 && 
+          Array.isArray(target[key]) && target[key].length > 0) {
+        continue;
+      }
       target[key] = sourceValue;
     }
   }
