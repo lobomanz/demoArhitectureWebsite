@@ -102,7 +102,7 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/demo/homepage" replace />} />
+        <Route path="/" element={<Navigate to="/demo-projekt/homepage" replace />} />
 
         <Route path="/:siteName" element={<DataLoader />}>
             <Route index element={<Navigate to="homepage" replace />} />
