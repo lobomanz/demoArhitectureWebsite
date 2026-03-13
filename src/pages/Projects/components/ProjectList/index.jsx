@@ -11,7 +11,7 @@ export default function ProjectList({ projectList }) {
             {projectList.map((project) => (
                 <ProjectCardWrapper key={project.id} className="card">
                     <Link
-                        to={`/projects/${project.id}?title=${encodeURIComponent(project.title)}`}
+                        to={`${project.id}?title=${encodeURIComponent(project.title)}`}
                         className="card-link"
                     >
                         <ProjectCard info={project} />

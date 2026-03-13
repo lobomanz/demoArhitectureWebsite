@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useParams, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { updateTranslations } from "../utils/i18n";
 
@@ -9,61 +9,110 @@ import ProjectSingle from "../pages/Project/index.jsx";
 
 /**
  * DataLoader component
- * Fetches data from the API based on :siteName and updates localization
+ * Fetches data from the API based on :siteName and updates localization.
  */
-const DataLoader = ({ children }) => {
+const DataLoader = () => {
   const { siteName } = useParams();
-  const [loading, setLoading] = useState(true);
+  
+  // Initialize loading as true only if we have a siteName to fetch
+  const [loading, setLoading] = useState(!!siteName);
+  const [error, setError] = useState(null);
+  const [lastFetched, setLastFetched] = useState(null);
 
   useEffect(() => {
-    if (!siteName) return;
+    // If we don't have a siteName or we already fetched this specific site, do nothing
+    if (!siteName || siteName === lastFetched) {
+      return;
+    }
 
-    setLoading(true);
-    fetch(`https://arhit.eu/api/PreviewSites/by-name?name=${siteName}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("API call failed");
-        return res.json();
-      })
-      .then((data) => {
-        // Assume data from API matches our en.json structure
-        updateTranslations(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.warn("API Error:", err);
-        // On error, fallback to default local en.json (already set in i18n.js)
-        setLoading(false);
-      });
-  }, [siteName]);
+    let isMounted = true;
+
+    const fetchData = async () => {
+      // Avoid redundant state updates if already in correct state
+      setError(null);
+      setLoading(true);
+
+      try {
+        const res = await fetch(`https://arhit.eu/api/PreviewSites/${siteName}`);
+        
+        if (!res.ok) {
+          throw new Error(`Failed to load site "${siteName}" (Status: ${res.status})`);
+        }
+        
+        const data = await res.json();
+        
+        if (isMounted) {
+          updateTranslations(data);
+          setLastFetched(siteName);
+          setLoading(false);
+        }
+      } catch (err) {
+        if (isMounted) {
+          console.error("DataLoader Error:", err);
+          setError(err instanceof Error ? err.message : "An unknown error occurred");
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [siteName, lastFetched]);
 
   if (loading) {
     return (
       <div style={{ 
-        height: "100vh", display: "flex", justifyContent: "center", 
+        height: "100vh", display: "flex", flexFlow: "column", justifyContent: "center", 
         alignItems: "center", backgroundColor: "#1e1e1e", color: "white" 
       }}>
-        Loading Site Data...
+        <div style={{ fontSize: "24px", marginBottom: "10px" }}>Loading Site Data...</div>
+        <div style={{ fontSize: "14px", color: "#888" }}>Fetching configuration for: {siteName}</div>
       </div>
     );
   }
 
-  return children;
+  if (error) {
+    return (
+      <div style={{ 
+        height: "100vh", display: "flex", flexFlow: "column", justifyContent: "center", 
+        alignItems: "center", backgroundColor: "#1e1e1e", color: "#ff6b6b" 
+      }}>
+        <div style={{ fontSize: "24px", marginBottom: "10px" }}>Oops! Something went wrong.</div>
+        <div style={{ fontSize: "16px", color: "#ddd", marginBottom: "20px" }}>{error}</div>
+        <button 
+          onClick={() => window.location.reload()}
+          style={{ 
+            padding: "10px 20px", borderRadius: "4px", border: "none", 
+            backgroundColor: "#333", color: "white", cursor: "pointer" 
+          }}
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  return <Outlet />;
 };
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Redirect root to a default site name or show an error */}
         <Route path="/" element={<Navigate to="/aktis-projekt/homepage" replace />} />
 
-        {/* Nested routes under :siteName */}
-        <Route path="/:siteName" element={<DataLoader><Navigate to="homepage" replace /></DataLoader>} />
-        
-        <Route path="/:siteName/homepage" element={<DataLoader><Homepage /></DataLoader>} />
-        <Route path="/:siteName/about" element={<DataLoader><AboutUs /></DataLoader>} />
-        <Route path="/:siteName/projects" element={<DataLoader><Projects /></DataLoader>} />
-        <Route path="/:siteName/projects/:projectId" element={<DataLoader><ProjectSingle /></DataLoader>} />
+        <Route path="/:siteName" element={<DataLoader />}>
+            <Route index element={<Navigate to="homepage" replace />} />
+            <Route path="homepage" element={<Homepage />} />
+            <Route path="about" element={<AboutUs />} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="projects/:projectId" element={<ProjectSingle />} />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
